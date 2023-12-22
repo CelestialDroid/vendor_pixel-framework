@@ -121,11 +121,10 @@ import com.android.systemui.statusbar.phone.StatusBarTouchableRegionManager;
 import com.android.systemui.statusbar.phone.dagger.CentralSurfacesComponent;
 import com.android.systemui.statusbar.phone.ongoingcall.OngoingCallController;
 import com.android.systemui.statusbar.policy.BatteryController;
-import com.android.systemui.statusbar.policy.BurnInProtectionController;
 import com.android.systemui.statusbar.policy.ConfigurationController;
 import com.android.systemui.statusbar.policy.DeviceProvisionedController;
 import com.android.systemui.statusbar.policy.ExtensionController;
-import com.android.systemui.statusbar.policy.FlashlightController;
+//import com.android.systemui.statusbar.policy.FlashlightController;
 import com.android.systemui.statusbar.policy.KeyguardStateController;
 import com.android.systemui.statusbar.policy.UserInfoControllerImpl;
 import com.android.systemui.statusbar.policy.UserSwitcherController;
@@ -142,7 +141,7 @@ import com.google.android.systemui.NotificationLockscreenUserManagerGoogle;
 import com.google.android.systemui.dreamliner.DockIndicationController;
 import com.google.android.systemui.dreamliner.DockObserver;
 import com.google.android.systemui.reversecharging.ReverseChargingViewController;
-import com.google.android.systemui.smartspace.SmartSpaceController;
+//import com.google.android.systemui.smartspace.SmartSpaceController;
 import com.google.android.systemui.statusbar.KeyguardIndicationControllerGoogle;
 
 import java.util.Optional;
@@ -163,7 +162,7 @@ public class CentralSurfacesGoogle extends CentralSurfacesImpl {
     private final WallpaperNotifier mWallpaperNotifier;
     private final Optional<ReverseChargingViewController> mReverseChargingViewControllerOptional;
     private final SysuiStatusBarStateController mStatusBarStateController;
-    private final SmartSpaceController mSmartSpaceController;
+    //private final SmartSpaceController mSmartSpaceController;
     private final NotificationLockscreenUserManagerGoogle mNotificationLockscreenUserManagerGoogle;
 
     private long mAnimStartTime;
@@ -221,7 +220,7 @@ public class CentralSurfacesGoogle extends CentralSurfacesImpl {
             NavigationBarController navigationBarController,
             AccessibilityFloatingMenuController accessibilityFloatingMenuController,
             Lazy<AssistManager> assistManagerLazy,
-            FlashlightController flashlightController,
+            //FlashlightController flashlightController,
             ConfigurationController configurationController,
             NotificationShadeWindowController notificationShadeWindowController,
             Lazy<NotificationShadeWindowViewController> notificationShadeWindowViewControllerLazy,
@@ -253,6 +252,7 @@ public class CentralSurfacesGoogle extends CentralSurfacesImpl {
             ExtensionController extensionController,
             UserInfoControllerImpl userInfoControllerImpl,
             PhoneStatusBarPolicy phoneStatusBarPolicy,
+            KeyguardIndicationController keyguardIndicationController,
             DemoModeController demoModeController,
             Lazy<NotificationShadeDepthController> notificationShadeDepthControllerLazy,
             StatusBarTouchableRegionManager statusBarTouchableRegionManager,
@@ -273,6 +273,7 @@ public class CentralSurfacesGoogle extends CentralSurfacesImpl {
             InteractionJankMonitor jankMonitor,
             DeviceStateManager deviceStateManager,
             WiredChargingRippleController wiredChargingRippleController,
+            TunerService tunerService,
             IDreamManager dreamManager,
             Lazy<CameraLauncher> cameraLauncherLazy,
             Lazy<LightRevealScrimViewModel> lightRevealScrimViewModelLazy,
@@ -281,11 +282,9 @@ public class CentralSurfacesGoogle extends CentralSurfacesImpl {
             UserTracker userTracker,
             Provider<FingerprintManager> fingerprintManager,
             ActivityStarter activityStarter,
-            TunerService tunerService,
-            SysUiState sysUiState,
-            BurnInProtectionController burnInProtectionController,
+            //SysUiState sysUiState,
             WallpaperNotifier wallpaperNotifier,
-            SmartSpaceController smartSpaceController,
+            //SmartSpaceController smartSpaceController,
             Optional<ReverseChargingViewController> reverseChargingViewControllerOptional,
             KeyguardIndicationControllerGoogle keyguardIndicationControllerGoogle) {
         super(context, notificationsController, fragmentService, lightBarController,
@@ -301,7 +300,7 @@ public class CentralSurfacesGoogle extends CentralSurfacesImpl {
                 wakefulnessLifecycle, powerInteractor, statusBarStateController,
                 bubblesOptional, noteTaskControllerLazy, deviceProvisionedController,
                 navigationBarController, accessibilityFloatingMenuController, assistManagerLazy,
-                flashlightController, configurationController, notificationShadeWindowController, notificationShadeWindowViewControllerLazy,
+                configurationController, notificationShadeWindowController, notificationShadeWindowViewControllerLazy,
                 notificationShelfController, notificationStackScrollLayoutController, notificationPresenterLazy,
                 notificationExpansionRepository, dozeParameters, scrimController, lockscreenWallpaperLazy,
                 biometricUnlockControllerLazy, authRippleController, dozeServiceHost, backActionInteractor,
@@ -317,9 +316,9 @@ public class CentralSurfacesGoogle extends CentralSurfacesImpl {
                 statusBarHideIconsForBouncerManager, lockscreenShadeTransitionController,
                 featureFlags, keyguardUnlockAnimationController, delayableExecutor,
                 messageRouter, wallpaperManager, startingSurfaceOptional, activityLaunchAnimator,
-                jankMonitor, deviceStateManager, wiredChargingRippleController,
+                jankMonitor, deviceStateManager, wiredChargingRippleController, tunerService,
                 dreamManager, cameraLauncherLazy, lightRevealScrimViewModelLazy, lightRevealScrim, alternateBouncerInteractor,
-                userTracker, fingerprintManager, activityStarter, tunerService, sysUiState, burnInProtectionController);
+                userTracker, fingerprintManager, activityStarter);
         mContext = context;
         mBatteryStateChangeCallback = new BatteryController.BatteryStateChangeCallback() {
             @Override
@@ -353,7 +352,7 @@ public class CentralSurfacesGoogle extends CentralSurfacesImpl {
         mKeyguardIndicationController = keyguardIndicationControllerGoogle;
         mStatusBarStateController = statusBarStateController;
         mWallpaperNotifier = wallpaperNotifier;
-        mSmartSpaceController = smartSpaceController;
+        //mSmartSpaceController = smartSpaceController;
         mNotificationLockscreenUserManagerGoogle = notificationLockscreenUserManagerGoogle;
     }
 
@@ -370,7 +369,7 @@ public class CentralSurfacesGoogle extends CentralSurfacesImpl {
         if (mReverseChargingViewControllerOptional.isPresent()) {
             mReverseChargingViewControllerOptional.get().initialize();
         }
-        mNotificationLockscreenUserManagerGoogle.updateSmartSpaceVisibilitySettings();
+        //mNotificationLockscreenUserManagerGoogle.updateSmartSpaceVisibilitySettings();
     }
 
     @Override
